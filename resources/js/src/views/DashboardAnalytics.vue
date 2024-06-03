@@ -9,184 +9,148 @@
 
 <template>
   <div id="dashboard-analytics">
-    <div class="vx-row">
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
-          <statistics-card-line
-            v-if="subscribersGained.analyticsData"
-            icon="UsersIcon"
-            :statistic="subscribersGained.analyticsData.subscribers | k_formatter"
-            statisticTitle="Subscribers Gained"
-            :chartData="subscribersGained.series"
-            type="area" />
-      </div>
-
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
-          <statistics-card-line
-            v-if="revenueGenerated.analyticsData"
-            icon="DollarSignIcon"
-            :statistic="revenueGenerated.analyticsData.revenue | k_formatter"
-            statisticTitle="Revenue Generated"
-            :chartData="revenueGenerated.series"
-            color="success"
-            type="area" />
-      </div>
-
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
-          <statistics-card-line
-            v-if="quarterlySales.analyticsData"
-            icon="ShoppingCartIcon"
-            :statistic="quarterlySales.analyticsData.sales"
-            statisticTitle="Quarterly Sales"
-            :chartData="quarterlySales.series"
-            color="danger"
-            type="area" />
-      </div>
-      <div class="vx-col w-full sm:w-1/2 md:w-1/2 lg:w-1/4 xl:w-1/4 mb-base">
-          <statistics-card-line
-            v-if="ordersRecevied.analyticsData"
-            icon="ShoppingBagIcon"
-            :statistic="ordersRecevied.analyticsData.orders | k_formatter"
-            statisticTitle="Orders Received"
-            :chartData="ordersRecevied.series"
-            color="warning"
-            type="area" />
-      </div>
-      <div class="vx-col w-full md:w-1/3 mb-base">
-        <vx-card>
-          <vue-apex-charts type="pie" height="350" :options="pieChart.chartOptions" :series="pieChart.series"></vue-apex-charts>
-        </vx-card>
-      </div>
-      <div class="vx-col w-full md:w-2/3 mb-base">
-        <vx-card>
-          <vue-apex-charts type="bar" height="350" :options="columnChart.chartOptions" :series="columnChart.series"></vue-apex-charts>
-        </vx-card>
-      </div>
-    </div>
+    <vx-card slot="no-body">
+      <vs-tabs>
+        <vs-tab label="Khóa học hiện tại">
+          <div class="tab-text">
+            <div class="vx-row box-current-course pt-3">
+              <div class="vx-col md:w-1/4 w-full mb-3" >
+                <img src="@assets/images/customs/thumb_course.png" alt="Logo" width="100%">
+              </div>
+              <div class="vx-col md:w-1/4 w-full mb-3" >
+                <h4>SKE1n-C2403HF</h4>
+                <p><i class="fa-solid fa-calendar" style="color:#425bf0; margin-right: 5px"></i>  20/02/2024 -  11/12/2024</p>
+                <p><i class="fa-solid fa-location-dot" style="color:#ff7f26; margin-right: 5px"></i>  Shophouse 17-09 Vinhomes Gardenia, Quận Nam Từ Liêm, Hà Nội </p>
+              </div>
+              <div class="vx-col md:w-1/2 w-full mb-3" >
+                <h4>Tiến độ của khóa học</h4>
+                <div class="vx-row">
+                  <div class="vx-col md:w-1/3 text-center">
+                    <vue-apex-charts type="donut" height="350" :options="apexChatData.donutChart.chartOptions" :series="apexChatData.donutChart.series"></vue-apex-charts>
+                    <p>Chuẩn bị bài trước khi đến lớp</p>
+                  </div>
+                  <div class="vx-col md:w-1/3 text-center">
+                    <vue-apex-charts type="donut" height="350" :options="apexChatData.donutChart1.chartOptions" :series="apexChatData.donutChart1.series"></vue-apex-charts>
+                    <p>Cùng ôn tập nào</p>
+                  </div>
+                  <div class="vx-col md:w-1/3 text-center">
+                    <vue-apex-charts type="donut" height="350" :options="apexChatData.donutChart2.chartOptions" :series="apexChatData.donutChart2.series"></vue-apex-charts>
+                    <p>Mức độ hoàn thành khóa học</p>
+                  </div>
+                </div>
+              </div>
+              <div class="vx-col md:w-1/4 w-full mb-3" >
+                <vs-button class="mt-2  w-full" color="warning">XEM CHI TIẾT KHÓA HỌC</vs-button>
+              </div>
+            </div>
+          </div>
+        </vs-tab>
+        <vs-tab label="Khóa học đã kết thúc">
+          <div class="tab-text">
+            <div class="vx-row box-history-course pt-3">
+              <div class="vx-col md:w-1/3 w-full mb-3" >
+                <div>
+                  <img src="@assets/images/customs/thumb_course_2.png" alt="Logo" width="100%">
+                  <h4 class="mt-3 mb-2">SM4new-Da2302HF</h4>
+                  <p><i class="fa-solid fa-calendar" style="color:#425bf0; margin-right: 5px"></i>  26/05/2023 - 15/08/2023</p>
+                  <p><i class="fa-solid fa-location-dot" style="color:#ff7f26; margin-right: 5px"></i>  Shophouse 17-09 Vinhomes Gardenia, Quận Nam Từ Liêm, Hà Nội </p>
+                  <vs-button class="mt-2 w-full" color="warning">XEM CHI TIẾT KHÓA HỌC</vs-button>
+                </div>
+              </div>
+              <div class="vx-col md:w-1/3 w-full mb-3" >
+                <div>
+                  <img src="@assets/images/customs/thumb_course_2.png" alt="Logo" width="100%">
+                  <h4 class="mt-3 mb-2">SM6-C2302HF</h4>
+                  <p><i class="fa-solid fa-calendar" style="color:#425bf0; margin-right: 5px"></i>  14/11/2023 - 06/02/2024</p>
+                  <p><i class="fa-solid fa-location-dot" style="color:#ff7f26; margin-right: 5px"></i>  Shophouse 17-09 Vinhomes Gardenia, Quận Nam Từ Liêm, Hà Nội </p>
+                  <vs-button class="mt-2 w-full" color="warning">XEM CHI TIẾT KHÓA HỌC</vs-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </vs-tab>
+      </vs-tabs>
+    </vx-card>
   </div>
 </template>
 
 <script>
-import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import VueApexCharts from 'vue-apexcharts'
 export default {
   components: {
-    StatisticsCardLine,
     VueApexCharts
   },
   data () {
     return {
-      subscribersGained: {
-        series: [
-          {
-            name: 'Subscribers',
-            data: [28, 40, 36, 52, 38, 60, 55]
-          }
-        ],
-        analyticsData: {
-          subscribers: 92600
-        }
-      },
-      revenueGenerated: {
-        series: [
-          {
-            name: 'Revenue',
-            data: [350, 275, 400, 300, 350, 300, 450]
-          }
-        ],
-        analyticsData: {
-          revenue: 97500
-        }
-      },
-      quarterlySales: {
-        series: [
-          {
-            name: 'Sales',
-            data: [10, 15, 7, 12, 3, 16]
-          }
-        ],
-        analyticsData: {
-          sales: '36%'
-        }
-      },
-      ordersRecevied: {
-        series: [
-          {
-            name: 'Orders',
-            data: [10, 15, 8, 15, 7, 12, 8]
-          }
-        ],
-        analyticsData: {
-          orders: 97500
-        }
-      },
-      pieChart: {
-        series: [44, 55, 13, 43],
-        chartOptions: {
-          labels: ['Team A', 'Team B', 'Team C', 'Team D'],
-          colors: ['#7367F0', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }]
-        }
-      },
-      columnChart: {
-        series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-          }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-          }, {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }],
-        chartOptions: {
-          colors: ['#7367F0', '#28C76F', '#EA5455', '#FF9F43', '#1E1E1E'],
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              endingShape: 'rounded',
-              columnWidth: '55%',
+      apexChatData:{
+        donutChart: {
+          series: [55, 45],
+          chartOptions: {
+            colors: ['#7367F0', '#ccc'],
+            legend: {
+              show: false,
             },
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-          },
-
-          xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-          },
-          yaxis: {
-            title: {
-              text: '$ (thousands)'
-            }
-          },
-          fill: {
-            opacity: 1
-
-          },
-          tooltip: {
-            y: {
-              formatter: function(val) {
-                return "$ " + val + " thousands"
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    show: false
+                  }
+                }
               }
-            }
+            ]
+          }
+        },
+        donutChart1: {
+          series: [65, 35],
+          chartOptions: {
+            colors: ['#FF9F43', '#ccc'],
+            legend: {
+              show: false,
+            },
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    show: false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        donutChart2: {
+          series: [60, 40],
+          chartOptions: {
+            colors: ['#28C76F', '#ccc'],
+            legend: {
+              show: false,
+            },
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    show: false
+                  }
+                }
+              }
+            ]
           }
         }
       }
+      
     }
   },
   created () {
