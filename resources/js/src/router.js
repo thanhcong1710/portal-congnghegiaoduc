@@ -21,6 +21,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '@/auth/authService'
 import User from './routers/user'
+import Student from './routers/student'
 Vue.use(Router)
 
 const router = new Router({
@@ -31,6 +32,7 @@ const router = new Router({
   },
   routes: [
     User.router,
+    Student.router,
     {
     // =============================================================================
     // MAIN LAYOUT ROUTES

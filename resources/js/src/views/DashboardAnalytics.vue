@@ -71,14 +71,55 @@
         </vs-tab>
       </vs-tabs>
     </vx-card>
+    <div class="vx-row mt-5">
+      <div class="vx-col lg:w-1/2 w-full text-left" id="simple-calendar-app">
+        <vx-card slot="no-body" >
+          <h4><i class="fa-solid fa-calendar-days text-warning"></i> Lịch học của tôi</h4>
+          <calendar-view
+            ref="calendar"
+            :show-date="showDate"
+            :events="simpleCalendarEvents"
+            enableDragDrop
+            eventTop="34px"
+            eventBorderHeight="0px"
+            eventContentHeight="1.65rem"
+            class="theme-default mt-4" v-if="calendarView == 'month'">
+          </calendar-view>
+        </vx-card>
+      </div>
+      <div class="vx-col lg:w-1/2 w-full text-left">
+        <vx-card slot="no-body" >
+          <h4><i class="fa-solid fa-calendar-days text-warning"></i> Tin tức & sự kiện</h4>
+          <vs-alert active="true" class="mt-5" icon-pack="feather" icon="icon-star">
+            Từ ngày 27/05 đến hết ngày 30/06/2024, nền tảng Fahasa.com - Nhà sách trực tuyến hàng đầu Việt Nam tung voucher ưu đãi cực hời dành cho Khách hàng CNGD trên toàn quốc.
+          </vs-alert>
+          <vs-alert active="true" class="mt-5" icon-pack="feather" icon="icon-star">
+            Ở mọi độ tuổi, con trẻ sẽ có những ước mơ, khát vọng của riêng mình, nó có thể đổi thay theo thời gian khôn lớn, điều này có thể lạ lẫm với ba mẹ nhưng đó chính là nền tảng giúp tạo nên thành tựu mai này cho con. Vì vậy, sự đồng hành của ba mẹ và trường học là vô cùng quan trọng trên hành trình nuôi dưỡng những khát vọng đó
+          </vs-alert>
+          <vs-alert active="true" class="mt-5" icon-pack="feather" icon="icon-star">
+           Nhằm đáp ứng nhu cầu học và ôn luyện tiếp Anh thuận lợi hơn cũng như nâng cao trải nghiệm học tập cho phụ huynh và học viên, hệ thống Anh văn Hội Việt Mỹ CNGD độc quyền phát triển bộ đôi ứng dụng OVI Parents và OVI Kids dành cho học viên – phụ huynh.
+          </vs-alert>
+          <vs-alert active="true" class="mt-5" icon-pack="feather" icon="icon-star">
+            LƯƠNG BẢO HÂN Ơi, Bạn có lịch thi Quiz 1 vào lúc 17:30 ngày 29/03/2024 tại phòng học HF2.1. Hãy ôn bài thật chu đáo và chuẩn bị một tinh thần vững vàng để tự tin đạt điểm tối đa nhé!
+          </vs-alert>
+          <vs-alert active="true" class="mt-5" icon-pack="feather" icon="icon-star">
+            CNGD thông báo lớp SKE1n-C2403HF của LƯƠNG BẢO HÂN sẽ khai giảng vào lúc 17:30 ngày 20/02/2024 tại phòng học HF 2.2. Mến chúc học viên học tốt! Thông tin liên hệ: 02473056979
+          </vs-alert>
+        </vx-card>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
+import { CalendarView, CalendarViewHeader } from 'vue-simple-calendar'
+require('vue-simple-calendar/static/css/default.css')
 export default {
   components: {
-    VueApexCharts
+    VueApexCharts,
+    CalendarView,
+    CalendarViewHeader,
   },
   data () {
     return {
@@ -149,12 +190,118 @@ export default {
             ]
           }
         }
-      }
+      },
+      showDate: new Date(),
+      disabledFrom: false,
+      id: 0,
+      title: '',
+      startDate: '',
+      endDate: '',
+      labelLocal: 'none',
+
+      url: '',
+      calendarView: 'month',
+
+      activePromptAddEvent: false,
+      activePromptEditEvent: false,
+
+      calendarViewTypes: [
+        {
+          label: 'Month',
+          val: 'month'
+        },
+        {
+          label: 'List',
+          val: 'list'
+        },
+      ],
+
+      events: [
+        {
+          id: 1,
+          title: 'Buổi 1',
+          startDate: new Date(new Date() - 1000 * 60 * 60 * 24 * 6),
+          endDate: new Date(new Date() - 1000 * 60 * 60 * 24 * 6),
+          url: '',
+          classes: 'event-success',
+          label: 'business'
+        },
+        {
+          id: 2,
+          title: 'Buổi 2',
+          startDate: new Date(new Date() - 1000 * 60 * 60 * 24 * 3),
+          endDate: new Date(new Date() - 1000 * 60 * 60 * 24 * 3),
+          url: '',
+          classes: 'event-success',
+          label: 'business'
+        },
+        {
+          id: 3,
+          title: 'Buổi 3',
+          startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3),
+          endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 3),
+          url: '',
+          classes: 'event-warning',
+          label: 'work'
+        },
+        {
+          id: 4,
+          title: 'Buổi 4',
+          startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 6),
+          endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 6),
+          url: '',
+          classes: 'event-warning',
+          label: 'work'
+        },
+        {
+          id: 5,
+          title: 'Buổi 5',
+          startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
+          endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
+          url: '',
+          classes: 'event-warning',
+          label: 'work'
+        },
+        {
+          id: 6,
+          title: 'Buổi 6',
+          startDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 13),
+          endDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 13),
+          url: '',
+          classes: 'event-warning',
+          label: 'work'
+        }
+      ],
+      labels: [
+        {
+          text: 'Business',
+          value : 'business',
+          color: 'success'
+        },
+        {
+          text: 'Work',
+          value: 'work',
+          color: 'warning'
+        },
+        {
+          text: 'Personal',
+          value: 'personal',
+          color: 'danger'
+        }
+      ]
       
     }
   },
   created () {
-  }
+  },
+  computed: {
+    simpleCalendarEvents () {
+      return this.events
+    },
+    calendarLabels () {
+      return this.labels
+    },
+  },
 }
 </script>
 
@@ -183,4 +330,15 @@ export default {
   }
 }
 /*! rtl:end:ignore */
+</style>
+<style lang="scss">
+@import "@sass/vuexy/apps/simple-calendar.scss";
+</style>
+<style>
+.theme-default .cv-weeks .cv-week {
+  min-height: 60px !important;
+}
+[dir] #simple-calendar-app .theme-default.cv-wrapper{
+  padding: 0px;
+}
 </style>
